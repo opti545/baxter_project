@@ -32,10 +32,8 @@
   </include>
   <include file="$(find baxter_moveit_config)/launch/default_warehouse_db.launch" />
 
-<-- Start the move_arm node from our scripts -->
-  <node pkg="baxter_builder" type="move_arm.py"
-name="move_arm_node" output ="screen">
-	</node>
-
+<!--Start the move_arm node from our scripts -->
+  <node pkg="baxter_builder" type="baxter_move_arm.py" name="move_arm_node" output ="screen">
+  </node>
 
 </launch>
