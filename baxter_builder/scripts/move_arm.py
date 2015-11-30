@@ -20,18 +20,17 @@ def move_arm():
     group = mc.MoveGroupCommander("left_arm")
     
     print "Create publisher to display_planned_path"
-    display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',moveit_msgs.msg.DisplayTrajectory)
     
     robot_pose = geometry_msgs.msg.Pose()
     robot_pose.orientation.x = 1
 
     robot_pose.position.x = 0.7
-    robot_pose.position.y = 0.4
+    robot_pose.position.y = 0.5
     robot_pose.position.z = 0.3
     
     group.set_pose_target(robot_pose)
     plan1 = group.plan()
-    rospy.sleep(3)
+    rospy.sleep(7)
     group.go(wait=True)
     
     robot_pose.orientation.x = 1
