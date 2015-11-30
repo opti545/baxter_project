@@ -1,13 +1,9 @@
 <launch>
-
-
   <arg name="config" default="true"/>
-
 
   <!--Node for trajectories, used with MoveIt -->
   <node pkg="baxter_interface" type="joint_trajectory_action_server.py" name="trajectory_node" output="log" >
   </node>   
-
 
 <!-- Taken from the demo_baxter.launch in the baxter_moveit_config-->
 
@@ -30,7 +26,6 @@
     <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
     <arg name="allow_trajectory_execution" value="true"/>
   </include>
-  <include file="$(find baxter_moveit_config)/launch/default_warehouse_db.launch" />
 
 <!--Start the move_arm node from our scripts -->
   <node pkg="baxter_builder" type="baxter_move_arm.py" name="move_arm_node" output ="screen">
