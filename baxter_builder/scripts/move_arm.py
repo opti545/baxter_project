@@ -3,21 +3,21 @@
 import rospy
 import copy
 import sys
-import moveit_commander
+import moveit_commander as mc
 import moveit_msgs.msg
 import geometry_msgs.msg
 
 def move_arm():
     print "Starting tutorial setup"
-    moveit_commander.roscpp_initialize(sys.argv)
+    mc.roscpp_initialize(sys.argv)
     rospy.init_node('move_arm_node')
     print "move_arm_node should be initialized"
     print "Initializing Robot Commander"
-    robot = moveit_commander.RobotCommander()
+    robot = mc.RobotCommander()
     print "Initializing Planning Scene Interface"
-    scene = moveit_commander.PlanningSceneInterface()
+    scene = mc.PlanningSceneInterface()
     print "Let's move left arm first"
-    group = moveit_commander.MoveGroupCommander("left_arm")
+    group = mc.MoveGroupCommander("left_arm")
     
     print "Create publisher to display_planned_path"
     display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',moveit_msgs.msg.DisplayTrajectory)
@@ -31,12 +31,23 @@ def move_arm():
     
     group.set_pose_target(robot_pose)
     plan1 = group.plan()
-    rospy.sleep(5)
+    rospy.sleep(3)
     group.go(wait=True)
     
-    moveit_commander.roscpp_shutdown()
+    robot_pose.orientation.x = 1
+
+    robot_pose.position.x = 0.83
+    robot_pose.position.y = 0.1
+    robot_pose.position.z = 0.07
+    
+    group.set_pose_target(robot_pose)
+    plan1 = group.plan()
+    rospy.sleep(3)
+    group.go(wait=True)
+
 
     print "Finishing"
+    mc.roscpp_shutdown()
 
 if __name__ == '__main__':
     try:
